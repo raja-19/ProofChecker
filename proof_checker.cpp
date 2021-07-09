@@ -8,14 +8,14 @@ string ProofChecker::axiomErrorMessage(const string& axiom) {
     return error_msg.str();
 }
 
-void ProofChecker::proccess(const Formula& formula, int index) {
+void ProofChecker::process(const Formula& formula, int index) {
     theorems_.insert(formula.expr, index);
     for (int support_index: precedents_.getSupport(formula.expr)) {
         consequents_.insert(formulas_[support_index - 1].constituents[1], 0, {support_index, index});
     }
 }
 
-void ProofChecker::proccessImplication(const Formula& formula, int index) {
+void ProofChecker::processImplication(const Formula& formula, int index) {
     if (formula.isImplication()) {
         precedents_.insert(formula.constituents[0], 0, {index});
         int theorem_index = theorems_.contains(formula.constituents[0]);
@@ -29,8 +29,8 @@ bool ProofChecker::obtainAxiom(const Formula& formula, int index) {
     int axiom_index = axioms_.contains(formula.expr);  
     if (axiom_index) {
         cout << index << ". " << formula.expr << " " << "Axiom " << axiom_index << endl; 
-        proccess(formula, index);
-        proccessImplication(formula, index);
+        process(formula, index);
+        processImplication(formula, index);
         return true;
     }
     return false;
@@ -40,8 +40,8 @@ bool ProofChecker::obtainConsequent(const Formula& formula, int index) {
     vector<int> support = consequents_.getSupport(formula.expr);  
     if (support.size() > 1) {
         cout << index << ". " << formula.expr << " " << "MP " << support[0] << ", " << support[1] << endl; 
-        proccess(formula, index);
-        proccessImplication(formula, index);
+        process(formula, index);
+        processImplication(formula, index);
         return true;
     }
     return false;

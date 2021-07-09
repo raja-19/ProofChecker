@@ -16,8 +16,8 @@ private:
     std::vector<Formula> formulas_;
 
     std::string axiomErrorMessage(const std::string& axiom);
-    void proccess(const Formula& formula, int index);
-    void proccessImplication(const Formula& formula, int index);
+    void process(const Formula& formula, int index);
+    void processImplication(const Formula& formula, int index);
     bool obtainAxiom(const Formula& formula, int index);
     bool obtainConsequent(const Formula& formula, int index);
 public:
