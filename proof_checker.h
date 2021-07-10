@@ -1,3 +1,5 @@
+#pragma once
+
 #include "wff.h"
 #include "formula_trie.h"
 
